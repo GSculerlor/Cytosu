@@ -22,7 +22,9 @@ namespace osu.Game.Rulesets.Cytosu
 {
     public class CytosuRuleset : Ruleset
     {
-        public override string Description => "a very cytosuruleset ruleset";
+        public override string Description => "Cytosu";
+
+        public override string PlayingVerb => "Scanning...";
 
         public override DrawableRuleset CreateDrawableRulesetWith(IBeatmap beatmap, IReadOnlyList<Mod> mods = null) =>
             new DrawableCytosuRuleset(this, beatmap, mods);
@@ -45,7 +47,7 @@ namespace osu.Game.Rulesets.Cytosu
             }
         }
 
-        public override string ShortName => "cytosuruleset";
+        public override string ShortName => "cytosu";
 
         public override IEnumerable<KeyBinding> GetDefaultKeyBindings(int variant = 0) => new[]
         {
