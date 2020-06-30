@@ -17,7 +17,7 @@ namespace osu.Game.Rulesets.Cytosu.UI.HUD
         private ScanLine scanLine;
 
         private const double default_beat_length = 120000.0 / 60.0;
-        private const float scan_gap = 25;
+        private const float scan_gap = 22;
 
         [BackgroundDependencyLoader]
         private void load(IBindable<WorkingBeatmap> working)

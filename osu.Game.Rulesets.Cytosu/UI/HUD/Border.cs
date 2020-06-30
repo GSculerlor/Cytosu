@@ -1,6 +1,7 @@
 ﻿// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the MIT Licence.
 // See the LICENCE file in the repository root for full licence text.
 
+using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
@@ -36,8 +37,8 @@ namespace osu.Game.Rulesets.Cytosu.UI.HUD
             {
                 boxContainer.Add(new Box
                 {
-                    Colour = Color4.Wheat,
-                    Size = new Vector2(4f, 10f),
+                    Colour = Color4.White.Opacity(0.75f),
+                    Size = new Vector2(2f, 4f),
                     Margin = new MarginPadding { Right = 80 },
                 });
             }
