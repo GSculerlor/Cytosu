@@ -25,7 +25,7 @@ namespace osu.Game.Rulesets.Cytosu.Tests.Components
             AddRange(new Drawable[]
             {
                 musicController,
-                new Scanner
+                new ScanLine
                 {
                     RelativeSizeAxes = Axes.Both
                 },

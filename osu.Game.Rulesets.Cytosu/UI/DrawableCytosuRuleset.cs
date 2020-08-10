@@ -24,6 +24,8 @@ namespace osu.Game.Rulesets.Cytosu.UI
         {
         }
 
+        public override PlayfieldAdjustmentContainer CreatePlayfieldAdjustmentContainer() => new CytosuPlayfieldAdjustmentContainer();
+
         protected override Playfield CreatePlayfield() => new CytosuPlayfield();
 
         protected override ReplayInputHandler CreateReplayInputHandler(Replay replay) => new CytosuFramedReplayInputHandler(replay);

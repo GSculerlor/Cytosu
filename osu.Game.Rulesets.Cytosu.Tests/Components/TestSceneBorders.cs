@@ -13,7 +13,7 @@ namespace osu.Game.Rulesets.Cytosu.Tests.Components
         {
             Children = new Drawable[]
             {
-                new Borders()
+                new Borders
                 {
                     RelativePositionAxes = Axes.Y,
                     Y = 0.7f,
