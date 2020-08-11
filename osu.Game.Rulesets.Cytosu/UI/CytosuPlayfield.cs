@@ -48,6 +48,8 @@ namespace osu.Game.Rulesets.Cytosu.UI
             };
         }
 
+        protected override GameplayCursorContainer CreateCursor() => new GameplayCursorContainer();
+
         public override void Add(DrawableHitObject h)
         {
             h.OnNewResult += onNewResult;
