@@ -99,10 +99,8 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
 
             if (!userTriggered)
             {
-                if (timeOffset > 0)
-                    ApplyResult(r => r.Type = HitResult.Perfect);
-
-                if (!HitObject.HitWindows.CanBeHit(timeOffset)) ApplyResult(r => r.Type = HitResult.Miss);
+                if (!HitObject.HitWindows.CanBeHit(timeOffset))
+                    ApplyResult(r => r.Type = HitResult.Miss);
 
                 return;
             }
