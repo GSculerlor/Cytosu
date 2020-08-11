@@ -3,20 +3,14 @@
 
 using System.Collections.Generic;
 using osu.Framework.Graphics;
-using osu.Framework.Graphics.Containers;
-using osu.Framework.Graphics.Shapes;
-using osu.Framework.Graphics.Sprites;
 using osu.Framework.Input.Bindings;
 using osu.Game.Beatmaps;
-using osu.Game.Graphics;
 using osu.Game.Rulesets.Difficulty;
 using osu.Game.Rulesets.Cytosu.Beatmaps;
 using osu.Game.Rulesets.Cytosu.Mods;
 using osu.Game.Rulesets.Cytosu.UI;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.UI;
-using osuTK;
-using osuTK.Graphics;
 
 namespace osu.Game.Rulesets.Cytosu
 {
@@ -55,28 +49,6 @@ namespace osu.Game.Rulesets.Cytosu
             new KeyBinding(InputKey.X, CytosuAction.Button2),
         };
 
-        public override Drawable CreateIcon() => new Icon(ShortName[0]);
-
-        public class Icon : CompositeDrawable
-        {
-            public Icon(char c)
-            {
-                InternalChildren = new Drawable[]
-                {
-                    new Circle
-                    {
-                        Size = new Vector2(20),
-                        Colour = Color4.White,
-                    },
-                    new SpriteText
-                    {
-                        Anchor = Anchor.Centre,
-                        Origin = Anchor.Centre,
-                        Text = c.ToString(),
-                        Font = OsuFont.Default.With(size: 18)
-                    }
-                };
-            }
-        }
+        public override Drawable CreateIcon() => new CytosuIcon();
     }
 }

@@ -13,7 +13,6 @@
     <PackageReference Include="ppy.osu.Game" Version="2020.806.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\Samples\Gameplay" />
-    <Folder Include="Resources\Textures" />
+    <Folder Include="Resources" />
   </ItemGroup>
 </Project>
