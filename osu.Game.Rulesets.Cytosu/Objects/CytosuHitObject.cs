@@ -4,6 +4,7 @@
 using osu.Framework.Bindables;
 using osu.Game.Beatmaps;
 using osu.Game.Beatmaps.ControlPoints;
+using osu.Game.Rulesets.Cytosu.Scoring;
 using osu.Game.Rulesets.Objects;
 using osu.Game.Rulesets.Objects.Types;
 using osu.Game.Rulesets.Scoring;
@@ -52,7 +53,6 @@ namespace osu.Game.Rulesets.Cytosu.Objects
             Scale = (1.0f - 0.7f * (difficulty.CircleSize - 5) / 5) / 2;
         }
 
-        //TODO: Change to Cytosu HitWindows if available
-        protected override HitWindows CreateHitWindows() => new HitWindows();
+        protected override HitWindows CreateHitWindows() => new CytosuHitWindows();
     }
 }

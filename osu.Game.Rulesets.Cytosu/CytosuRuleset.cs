@@ -8,8 +8,10 @@ using osu.Game.Beatmaps;
 using osu.Game.Rulesets.Difficulty;
 using osu.Game.Rulesets.Cytosu.Beatmaps;
 using osu.Game.Rulesets.Cytosu.Mods;
+using osu.Game.Rulesets.Cytosu.Scoring;
 using osu.Game.Rulesets.Cytosu.UI;
 using osu.Game.Rulesets.Mods;
+using osu.Game.Rulesets.Scoring;
 using osu.Game.Rulesets.UI;
 
 namespace osu.Game.Rulesets.Cytosu
@@ -22,6 +24,8 @@ namespace osu.Game.Rulesets.Cytosu
 
         public override DrawableRuleset CreateDrawableRulesetWith(IBeatmap beatmap, IReadOnlyList<Mod> mods = null) =>
             new DrawableCytosuRuleset(this, beatmap, mods);
+
+        public override ScoreProcessor CreateScoreProcessor() => new CytosuScoreProcessor();
 
         public override IBeatmapConverter CreateBeatmapConverter(IBeatmap beatmap) =>
             new CytosuBeatmapConverter(beatmap, this);

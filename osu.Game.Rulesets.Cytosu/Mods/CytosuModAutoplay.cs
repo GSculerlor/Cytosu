@@ -16,7 +16,7 @@ namespace osu.Game.Rulesets.Cytosu.Mods
         {
             ScoreInfo = new ScoreInfo
             {
-                User = new User { Username = "sample" },
+                User = new User { Username = "Nora" },
             },
             Replay = new CytosuAutoGenerator(beatmap).Generate(),
         };
