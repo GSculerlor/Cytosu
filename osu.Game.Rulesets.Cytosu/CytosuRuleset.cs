@@ -37,6 +37,9 @@ namespace osu.Game.Rulesets.Cytosu
         {
             switch (type)
             {
+                case ModType.DifficultyReduction:
+                    return new[] { new CytosuModNoFail() };
+
                 case ModType.Automation:
                     return new[] { new CytosuModAutoplay() };
 
