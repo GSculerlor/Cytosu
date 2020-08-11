@@ -24,13 +24,22 @@ namespace osu.Game.Rulesets.Cytosu.UI
         {
         }
 
+        public override DrawableHitObject<CytosuHitObject> CreateDrawableRepresentation(CytosuHitObject h)
+        {
+            switch (h)
+            {
+                case HitCircle basic:
+                    return new DrawableHitCircle(basic);
+            }
+
+            return null;
+        }
+
         public override PlayfieldAdjustmentContainer CreatePlayfieldAdjustmentContainer() => new CytosuPlayfieldAdjustmentContainer();
 
         protected override Playfield CreatePlayfield() => new CytosuPlayfield();
 
         protected override ReplayInputHandler CreateReplayInputHandler(Replay replay) => new CytosuFramedReplayInputHandler(replay);
-
-        public override DrawableHitObject<CytosuHitObject> CreateDrawableRepresentation(CytosuHitObject h) => new DrawableCytosuHitObject(h);
 
         protected override PassThroughInputManager CreateInputManager() => new CytosuInputManager(Ruleset?.RulesetInfo);
     }

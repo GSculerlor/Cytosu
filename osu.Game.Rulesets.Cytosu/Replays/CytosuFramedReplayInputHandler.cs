@@ -14,13 +14,6 @@ namespace osu.Game.Rulesets.Cytosu.Replays
 {
     public class CytosuFramedReplayInputHandler : FramedReplayInputHandler<CytosuReplayFrame>
     {
-        public CytosuFramedReplayInputHandler(Replay replay)
-            : base(replay)
-        {
-        }
-
-        protected override bool IsImportant(CytosuReplayFrame frame) => frame.Actions.Any();
-
         protected Vector2 Position
         {
             get
@@ -36,19 +29,23 @@ namespace osu.Game.Rulesets.Cytosu.Replays
             }
         }
 
-        public override List<IInput> GetPendingInputs()
+        public CytosuFramedReplayInputHandler(Replay replay)
+            : base(replay)
         {
-            return new List<IInput>
-            {
-                new MousePositionAbsoluteInput
-                {
-                    Position = GamefieldToScreenSpace(Position),
-                },
-                new ReplayState<CytosuAction>
-                {
-                    PressedActions = CurrentFrame?.Actions ?? new List<CytosuAction>(),
-                }
-            };
         }
+
+        public override void CollectPendingInputs(List<IInput> inputs)
+        {
+            inputs.Add(new MousePositionAbsoluteInput
+            {
+                Position = GamefieldToScreenSpace(Position),
+            });
+            inputs.Add(new ReplayState<CytosuAction>
+            {
+                PressedActions = CurrentFrame?.Actions ?? new List<CytosuAction>(),
+            });
+        }
+
+        protected override bool IsImportant(CytosuReplayFrame frame) => frame.Actions.Any();
     }
 }

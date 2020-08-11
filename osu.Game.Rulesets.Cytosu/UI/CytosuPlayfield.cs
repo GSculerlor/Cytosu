@@ -6,6 +6,7 @@ using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Game.Rulesets.Cytosu.UI.HUD;
 using osu.Game.Rulesets.UI;
+using osuTK.Graphics;
 
 namespace osu.Game.Rulesets.Cytosu.UI
 {
@@ -15,18 +16,27 @@ namespace osu.Game.Rulesets.Cytosu.UI
         [BackgroundDependencyLoader]
         private void load()
         {
-            AddInternal(new Container
+            AddRangeInternal(new Drawable[]
             {
-                Padding = new MarginPadding { Vertical = 50 },
-                RelativeSizeAxes = Axes.Both,
-                Children = new Drawable[]
+                new Container
                 {
-                    new Scanner
+                    RelativeSizeAxes = Axes.Both,
+                    Children = new Drawable[]
                     {
-                        RelativeSizeAxes = Axes.Both
-                    },
-                    HitObjectContainer,
-                }
+                        new PlayfieldBorder
+                        {
+                            RelativeSizeAxes = Axes.Both
+                        },
+                        new ScanLine
+                        {
+                            Origin = Anchor.Centre,
+                            Anchor = Anchor.Centre,
+                            Width = 5000f,
+                            LineColour = Color4.White,
+                        },
+                        HitObjectContainer
+                    }
+                },
             });
         }
     }

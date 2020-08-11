@@ -1,20 +1,58 @@
 ﻿// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the MIT Licence.
 // See the LICENCE file in the repository root for full licence text.
 
-using osu.Game.Rulesets.Judgements;
+using osu.Framework.Bindables;
+using osu.Game.Beatmaps;
+using osu.Game.Beatmaps.ControlPoints;
 using osu.Game.Rulesets.Objects;
 using osu.Game.Rulesets.Objects.Types;
+using osu.Game.Rulesets.Scoring;
 using osuTK;
 
 namespace osu.Game.Rulesets.Cytosu.Objects
 {
-    public class CytosuHitObject : HitObject, IHasPosition
+    public abstract class CytosuHitObject : HitObject, IHasPosition
     {
-        public override Judgement CreateJudgement() => new Judgement();
+        public const float CIRCLE_RADIUS = 60;
 
-        public Vector2 Position { get; set; }
+        public double TimePreempt = 600;
+        public double TimeFadeIn = 400;
+
+        public virtual HitObjectDirection Direction { get; set; }
+
+        public readonly Bindable<Vector2> PositionBindable = new Bindable<Vector2>();
+
+        public virtual Vector2 Position
+        {
+            get => PositionBindable.Value;
+            set => PositionBindable.Value = value;
+        }
 
         public float X => Position.X;
         public float Y => Position.Y;
+
+        public double Radius => CIRCLE_RADIUS * Scale;
+
+        public readonly Bindable<float> ScaleBindable = new BindableFloat(1);
+
+        public float Scale
+        {
+            get => ScaleBindable.Value;
+            set => ScaleBindable.Value = value;
+        }
+
+        protected override void ApplyDefaultsToSelf(ControlPointInfo controlPointInfo, BeatmapDifficulty difficulty)
+        {
+            base.ApplyDefaultsToSelf(controlPointInfo, difficulty);
+
+            //TODO: Handle lifetime offset and fade in duration here to prevent overstacking
+            TimePreempt = (float)BeatmapDifficulty.DifficultyRange(difficulty.ApproachRate, 1800, 1200, 450);
+            TimeFadeIn = 400;
+
+            Scale = (1.0f - 0.7f * (difficulty.CircleSize - 5) / 5) / 2;
+        }
+
+        //TODO: Change to Cytosu HitWindows if available
+        protected override HitWindows CreateHitWindows() => new HitWindows();
     }
 }
