@@ -8,9 +8,11 @@ using osu.Game.Beatmaps;
 using osu.Game.Rulesets.Difficulty;
 using osu.Game.Rulesets.Cytosu.Beatmaps;
 using osu.Game.Rulesets.Cytosu.Mods;
+using osu.Game.Rulesets.Cytosu.Replays;
 using osu.Game.Rulesets.Cytosu.Scoring;
 using osu.Game.Rulesets.Cytosu.UI;
 using osu.Game.Rulesets.Mods;
+using osu.Game.Rulesets.Replays.Types;
 using osu.Game.Rulesets.Scoring;
 using osu.Game.Rulesets.UI;
 
@@ -32,6 +34,8 @@ namespace osu.Game.Rulesets.Cytosu
 
         public override DifficultyCalculator CreateDifficultyCalculator(WorkingBeatmap beatmap) =>
             new CytosuDifficultyCalculator(this, beatmap);
+
+        public override IConvertibleReplayFrame CreateConvertibleReplayFrame() => new CytosuReplayFrame();
 
         public override IEnumerable<Mod> GetModsFor(ModType type)
         {
