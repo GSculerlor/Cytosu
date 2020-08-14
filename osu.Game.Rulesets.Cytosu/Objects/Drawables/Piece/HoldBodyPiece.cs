@@ -9,13 +9,13 @@ using osu.Game.Graphics;
 
 namespace osu.Game.Rulesets.Cytosu.Objects.Drawables.Piece
 {
-    public class BodyPiece : CompositeDrawable
+    public class HoldBodyPiece : CompositeDrawable
     {
         public HitObjectDirection Direction { get; set; }
 
         private readonly Box innerBox;
 
-        public BodyPiece()
+        public HoldBodyPiece()
         {
             RelativeSizeAxes = Axes.Both;
             Anchor = Anchor.Centre;
@@ -38,7 +38,7 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables.Piece
         [BackgroundDependencyLoader]
         private void load(OsuColour colour)
         {
-            innerBox.Colour = Direction == HitObjectDirection.Up ? colour.Blue : colour.BlueDarker;
+            innerBox.Colour = Direction == HitObjectDirection.Up ? colour.Pink : colour.PinkDarker;
         }
     }
 }

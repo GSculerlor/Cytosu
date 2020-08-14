@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Game.Beatmaps;
 using osu.Game.Rulesets.Cytosu.Objects;
 using osu.Game.Rulesets.Cytosu.Utils;
@@ -27,17 +28,30 @@ namespace osu.Game.Rulesets.Cytosu.Beatmaps
         {
             var progression = CytosuUtils.GetYProgressionFromBeatmap(beatmap, original.StartTime);
 
-            //TODO: make it more readable (I mean wtf prop Item1 * 384)
             float x = ((IHasXPosition)original).X;
             float y = progression.yPosition * 384;
 
-            yield return new HitCircle
+            switch (original)
             {
-                Samples = original.Samples,
-                StartTime = original.StartTime,
-                Position = new Vector2(x, y),
-                Direction = progression.direction
-            };
+                case IHasDuration endTimeData:
+                    return new Hold
+                    {
+                        Samples = original.Samples,
+                        StartTime = original.StartTime,
+                        EndTime = endTimeData.EndTime,
+                        Position = new Vector2(x, y),
+                        Direction = progression.direction
+                    }.Yield();
+
+                default:
+                    return new HitCircle
+                    {
+                        Samples = original.Samples,
+                        StartTime = original.StartTime,
+                        Position = new Vector2(x, y),
+                        Direction = progression.direction
+                    }.Yield();
+            }
         }
     }
 }

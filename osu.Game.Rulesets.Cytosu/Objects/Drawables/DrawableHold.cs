@@ -3,49 +3,33 @@
 
 using System;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore.Internal;
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using osu.Framework.Input.Bindings;
 using osu.Game.Rulesets.Cytosu.Objects.Drawables.Piece;
 using osu.Game.Rulesets.Objects.Drawables;
+using osu.Game.Rulesets.Objects.Types;
 using osu.Game.Rulesets.Scoring;
 using osuTK;
 
 namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
 {
-    public class DrawableHitCircle : DrawableCytosuHitObject
+    public class DrawableHold : DrawableCytosuHitObject
     {
-        public readonly HitReceptor HitArea;
         public readonly Drawable RingPiece;
         public readonly Drawable BodyPiece;
-
-        public override double LifetimeStart
-        {
-            get => base.LifetimeStart;
-            set
-            {
-                base.LifetimeStart = value;
-                BodyPiece.LifetimeStart = value;
-            }
-        }
-
-        public override double LifetimeEnd
-        {
-            get => base.LifetimeEnd;
-            set
-            {
-                base.LifetimeEnd = value;
-                BodyPiece.LifetimeEnd = value;
-            }
-        }
+        public readonly HoldRingProgressPiece RingProgressPiece;
 
         private readonly IBindable<Vector2> positionBindable = new Bindable<Vector2>();
         private readonly IBindable<float> scaleBindable = new BindableFloat();
         private readonly Container scaleContainer;
 
-        public DrawableHitCircle(CytosuHitObject hitObject)
+        //Hold need to hovered to make it a valid action
+        public override bool HandlePositionalInput => true;
+
+        public DrawableHold(CytosuHitObject hitObject)
             : base(hitObject)
         {
             Origin = Anchor.Centre;
@@ -61,36 +45,29 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
                     Anchor = Anchor.Centre,
                     Children = new[]
                     {
-                        HitArea = new HitReceptor
-                        {
-                            Hit = () =>
-                            {
-                                if (AllJudged)
-                                    return false;
-
-                                UpdateResult(true);
-                                return true;
-                            },
-                        },
                         new Container
                         {
                             RelativeSizeAxes = Axes.Both,
                             Anchor = Anchor.Centre,
                             Origin = Anchor.Centre,
                             Margin = new MarginPadding(Piece.RingPiece.RING_THICKNESS),
-                            Child = BodyPiece = new BodyPiece
+                            Child = BodyPiece = new HoldBodyPiece
                             {
                                 Direction = HitObject.Direction,
                                 Alpha = 0,
                                 Scale = Vector2.Zero
                             },
                         },
+                        RingProgressPiece = new HoldRingProgressPiece
+                        {
+                            RelativeSizeAxes = Axes.Both,
+                        },
                         RingPiece = new RingPiece()
                     }
                 }
             };
 
-            Size = HitArea.DrawSize;
+            Size = new Vector2(CytosuHitObject.CIRCLE_RADIUS * 2);
         }
 
         [BackgroundDependencyLoader]
@@ -103,23 +80,53 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
             scaleBindable.BindTo(HitObject.ScaleBindable);
         }
 
+        private readonly Bindable<bool> isActivated = new BindableBool();
+        private double holdDuration;
+
+        private CytosuInputManager inputManager => GetContainingInputManager() as CytosuInputManager;
+
+        protected override void Update()
+        {
+            base.Update();
+
+            isActivated.Value = Time.Current >= HitObject.StartTime
+                                && Time.Current <= ((IHasDuration)HitObject)?.EndTime
+                                && inputManager.PressedActions.Any() && IsHovered;
+
+            if (Result.HasResult) return;
+
+            if (Time.Current >= HitObject.StartTime && Time.Current <= ((IHasDuration)HitObject)?.EndTime)
+            {
+                if (isActivated.Value)
+                {
+                    double progression = holdDuration / ((IHasDuration)HitObject).Duration;
+                    holdDuration += Time.Elapsed;
+
+                    RingProgressPiece.Progress.Current.Value = progression;
+                }
+            }
+        }
+
         protected override void CheckForResult(bool userTriggered, double timeOffset)
         {
-            Debug.Assert(HitObject.HitWindows != null);
+            double progression = holdDuration / ((IHasDuration)HitObject).Duration;
 
-            if (!userTriggered)
+            if (Time.Current < HitObject.StartTime) return;
+
+            if (userTriggered || Time.Current < ((IHasDuration)HitObject)?.EndTime)
+                return;
+
+            ApplyResult(result =>
             {
-                if (!HitObject.HitWindows.CanBeHit(timeOffset))
-                    ApplyResult(r => r.Type = HitResult.Miss);
-
-                return;
-            }
-
-            var result = HitObject.HitWindows.ResultFor(timeOffset);
-            if (result == HitResult.None || result == HitResult.Miss && Time.Current < HitObject.StartTime)
-                return;
-
-            ApplyResult(r => r.Type = result);
+                if (progression >= .9)
+                    result.Type = HitResult.Great;
+                else if (progression >= .75)
+                    result.Type = HitResult.Good;
+                else if (progression >= .5)
+                    result.Type = HitResult.Meh;
+                else if (Time.Current >= ((IHasDuration)HitObject)?.EndTime)
+                    result.Type = HitResult.Miss;
+            });
         }
 
         protected override void UpdateInitialTransforms()
@@ -133,7 +140,8 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
 
                 BodyPiece.FadeIn(Math.Min(HitObject.TimeFadeIn * 2, HitObject.TimePreempt));
                 BodyPiece.ScaleTo(1f, HitObject.TimePreempt);
-                BodyPiece.Expire(true);
+
+                RingProgressPiece.AutoProgress.FillTo(1, Math.Min(HitObject.TimeFadeIn * 2, HitObject.TimePreempt));
             }
         }
 
@@ -145,14 +153,6 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
 
             switch (state)
             {
-                case ArmedState.Idle:
-                    this.Delay(HitObject.TimePreempt).FadeOut(500);
-
-                    Expire(true);
-
-                    HitArea.HitAction = null;
-                    break;
-
                 case ArmedState.Miss:
                     this.FadeOut(100);
                     break;
@@ -163,52 +163,7 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
                         .FadeOut(200);
                     BodyPiece.FadeOut(200);
 
-                    this.Delay(800).FadeOut();
                     break;
-            }
-        }
-
-        //TODO: Add Cytosu judgement if available
-
-        public class HitReceptor : CompositeDrawable, IKeyBindingHandler<CytosuAction>
-        {
-            public override bool HandlePositionalInput => true;
-
-            public Func<bool> Hit;
-
-            public CytosuAction? HitAction;
-
-            public HitReceptor()
-            {
-                Size = new Vector2(CytosuHitObject.CIRCLE_RADIUS * 2);
-
-                Anchor = Anchor.Centre;
-                Origin = Anchor.Centre;
-
-                CornerRadius = CytosuHitObject.CIRCLE_RADIUS;
-                CornerExponent = 2;
-            }
-
-            public bool OnPressed(CytosuAction action)
-            {
-                switch (action)
-                {
-                    case CytosuAction.Button1:
-                    case CytosuAction.Button2:
-                        if (IsHovered && (Hit?.Invoke() ?? false))
-                        {
-                            HitAction = action;
-                            return true;
-                        }
-
-                        break;
-                }
-
-                return false;
-            }
-
-            public void OnReleased(CytosuAction action)
-            {
             }
         }
     }

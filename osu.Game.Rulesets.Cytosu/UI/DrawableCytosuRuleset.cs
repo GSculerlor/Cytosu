@@ -30,6 +30,9 @@ namespace osu.Game.Rulesets.Cytosu.UI
             {
                 case HitCircle basic:
                     return new DrawableHitCircle(basic);
+
+                case Hold hold:
+                    return new DrawableHold(hold);
             }
 
             return null;
