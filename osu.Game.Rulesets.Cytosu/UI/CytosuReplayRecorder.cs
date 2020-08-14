@@ -12,12 +12,12 @@ namespace osu.Game.Rulesets.Cytosu.UI
 {
     public class CytosuReplayRecorder : ReplayRecorder<CytosuAction>
     {
-        public CytosuReplayRecorder(Replay target)
-            : base(target)
+        public CytosuReplayRecorder(Replay replay)
+            : base(replay)
         {
         }
 
         protected override ReplayFrame HandleFrame(Vector2 mousePosition, List<CytosuAction> actions, ReplayFrame previousFrame)
-            => new CytosuReplayFrame(Time.Current, mousePosition, actions);
+            => new CytosuReplayFrame(Time.Current, mousePosition, actions.ToArray());
     }
 }

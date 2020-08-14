@@ -16,16 +16,18 @@ namespace osu.Game.Rulesets.Cytosu.Replays
     {
         protected Replay Replay;
 
+        protected List<ReplayFrame> Frames => Replay.Frames;
+
         public new CytosuBeatmap Beatmap => (CytosuBeatmap)base.Beatmap;
 
         public CytosuAutoGenerator(IBeatmap beatmap)
             : base(beatmap)
         {
+            Replay = new Replay();
         }
 
         public override Replay Generate()
         {
-            Replay = new Replay();
             List<CytosuAction> activeActions = new List<CytosuAction>();
 
             double lastCheckedTime = -10000;
@@ -35,7 +37,7 @@ namespace osu.Game.Rulesets.Cytosu.Replays
                 releaseBefore(time, position);
 
                 activeActions.Add(CytosuAction.Button1);
-                Replay.Frames.Add(new CytosuReplayFrame(time, position, activeActions.ToList()));
+                Frames.Add(new CytosuReplayFrame(time, position, activeActions.FirstOrDefault()));
                 lastCheckedTime = time;
             }
 
@@ -43,7 +45,7 @@ namespace osu.Game.Rulesets.Cytosu.Replays
             {
                 activeActions.Clear();
 
-                Replay.Frames.Add(new CytosuReplayFrame(time, position, activeActions.ToList()));
+                Frames.Add(new CytosuReplayFrame(time, position, activeActions.FirstOrDefault()));
                 lastCheckedTime = time;
             }
 
@@ -60,7 +62,7 @@ namespace osu.Game.Rulesets.Cytosu.Replays
                 }
             }
 
-            foreach (var hitObject in Beatmap.HitObjects.OrderBy(x => x.StartTime))
+            foreach (var hitObject in Beatmap.HitObjects)
             {
                 switch (hitObject)
                 {
@@ -70,8 +72,6 @@ namespace osu.Game.Rulesets.Cytosu.Replays
                         break;
                 }
             }
-
-            releaseBefore(lastCheckedTime + 1000, Vector2.Zero);
 
             return Replay;
         }

@@ -12,24 +12,23 @@ namespace osu.Game.Rulesets.Cytosu.Replays
 {
     public class CytosuReplayFrame : ReplayFrame, IConvertibleReplayFrame
     {
-        public List<CytosuAction> Actions = new List<CytosuAction>();
         public Vector2 Position;
+        public List<CytosuAction> Actions = new List<CytosuAction>();
 
         public CytosuReplayFrame()
         {
         }
 
-        public CytosuReplayFrame(double time, Vector2 position, List<CytosuAction> actions)
+        public CytosuReplayFrame(double time, Vector2 position, params CytosuAction[] actions)
             : base(time)
         {
             Position = position;
-            Actions = actions;
+            Actions.AddRange(actions);
         }
 
         public void FromLegacy(LegacyReplayFrame currentFrame, IBeatmap beatmap, ReplayFrame lastFrame = null)
         {
             Position = currentFrame.Position;
-
             if (currentFrame.MouseLeft) Actions.Add(CytosuAction.Button1);
             if (currentFrame.MouseRight) Actions.Add(CytosuAction.Button2);
         }
@@ -38,8 +37,10 @@ namespace osu.Game.Rulesets.Cytosu.Replays
         {
             ReplayButtonState state = ReplayButtonState.None;
 
-            if (Actions.Contains(CytosuAction.Button1)) state |= ReplayButtonState.Left1;
-            if (Actions.Contains(CytosuAction.Button2)) state |= ReplayButtonState.Right1;
+            if (Actions.Contains(CytosuAction.Button1))
+                state |= ReplayButtonState.Left1;
+            if (Actions.Contains(CytosuAction.Button2))
+                state |= ReplayButtonState.Right1;
 
             return new LegacyReplayFrame(Time, Position.X, Position.Y, state);
         }
