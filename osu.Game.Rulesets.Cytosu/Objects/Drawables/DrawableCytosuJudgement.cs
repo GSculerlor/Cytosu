@@ -8,6 +8,7 @@ using osu.Framework.Graphics.Containers;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;
 using osu.Game.Rulesets.Judgements;
+using osu.Game.Rulesets.Objects.Drawables;
 using osu.Game.Rulesets.Scoring;
 using osuTK;
 
@@ -22,6 +23,10 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
 
         public DrawableCytosuJudgement(JudgementResult result, DrawableCytosuHitObject judgedObject)
             : base(result, judgedObject)
+        {
+        }
+
+        public DrawableCytosuJudgement()
         {
         }
 
@@ -57,6 +62,17 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
                 case HitResult.Great:
                     judgementText.Text = "Perfect";
                     break;
+            }
+        }
+
+        public override void Apply(JudgementResult result, DrawableHitObject judgedObject)
+        {
+            base.Apply(result, judgedObject);
+
+            if (judgedObject?.HitObject is CytosuHitObject hitObject)
+            {
+                Position = hitObject.Position;
+                Scale = new Vector2(hitObject.Scale);
             }
         }
     }
