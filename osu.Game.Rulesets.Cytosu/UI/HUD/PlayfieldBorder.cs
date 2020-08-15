@@ -2,22 +2,16 @@
 // See the LICENCE file in the repository root for full licence text.
 
 using osu.Framework.Allocation;
-using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using osu.Game.Beatmaps;
 
 namespace osu.Game.Rulesets.Cytosu.UI.HUD
 {
     public class PlayfieldBorder : CompositeDrawable
     {
-        private readonly IBindable<WorkingBeatmap> beatmap = new Bindable<WorkingBeatmap>();
-
         [BackgroundDependencyLoader]
-        private void load(IBindable<WorkingBeatmap> working)
+        private void load()
         {
-            beatmap.BindTo(working);
-
             InternalChildren = new Drawable[]
             {
                 new Container
