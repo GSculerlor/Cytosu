@@ -14,7 +14,7 @@ namespace osu.Game.Rulesets.Cytosu.UI
 
         private readonly Bindable<bool> showCursor = new Bindable<bool>(true);
 
-        [BackgroundDependencyLoader]
+        [BackgroundDependencyLoader(true)]
         private void load(CytosuRulesetConfigManager rulesetConfig)
         {
             rulesetConfig?.BindWith(CytosuRulesetSetting.ShowCursor, showCursor);
