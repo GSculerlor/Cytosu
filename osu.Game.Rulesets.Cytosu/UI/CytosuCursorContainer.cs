@@ -3,6 +3,7 @@
 
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
+using osu.Framework.Graphics;
 using osu.Game.Rulesets.Cytosu.Configurations;
 using osu.Game.Rulesets.UI;
 
@@ -19,6 +20,8 @@ namespace osu.Game.Rulesets.Cytosu.UI
         {
             rulesetConfig?.BindWith(CytosuRulesetSetting.ShowCursor, showCursor);
         }
+
+        protected override Drawable CreateCursor() => new CytosuCursor();
 
         protected override void LoadComplete()
         {
