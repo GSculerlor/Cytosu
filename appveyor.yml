@@ -15,10 +15,3 @@ build:
   parallel: true
   verbosity: minimal
   publish_nuget: true
-after_build:
-  - ps: dotnet tool restore
-  - ps: dotnet format --dry-run --check
-test:
-  assemblies:
-    except:
-      - ''
