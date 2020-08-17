@@ -13,6 +13,7 @@ using osu.Game.Rulesets.Cytosu.Replays;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.Objects.Drawables;
 using osu.Game.Rulesets.UI;
+using osuTK;
 
 namespace osu.Game.Rulesets.Cytosu.UI
 {
@@ -23,6 +24,8 @@ namespace osu.Game.Rulesets.Cytosu.UI
             : base(ruleset, beatmap, mods)
         {
         }
+
+        public override bool ReceivePositionalInputAt(Vector2 screenSpacePos) => true;
 
         public override DrawableHitObject<CytosuHitObject> CreateDrawableRepresentation(CytosuHitObject h)
         {
