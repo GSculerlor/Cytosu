@@ -91,7 +91,7 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
 
             isActivated.Value = Time.Current >= HitObject.StartTime
                                 && Time.Current <= ((IHasDuration)HitObject)?.EndTime
-                                && inputManager.PressedActions.Any() && IsHovered;
+                                && (inputManager.PressedActions.Any() && IsHovered || ShouldPerfectlyJudged);
 
             if (Result.HasResult) return;
 

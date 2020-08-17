@@ -12,6 +12,8 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
     {
         private readonly Container container;
 
+        public bool ShouldPerfectlyJudged { get; set; }
+
         public DrawableCytosuHitObject(CytosuHitObject hitObject)
             : base(hitObject)
         {
