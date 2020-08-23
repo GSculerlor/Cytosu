@@ -66,6 +66,8 @@ namespace osu.Game.Rulesets.Cytosu
         {
             new KeyBinding(InputKey.Z, CytosuAction.Button1),
             new KeyBinding(InputKey.X, CytosuAction.Button2),
+            new KeyBinding(InputKey.MouseLeft, CytosuAction.Button1),
+            new KeyBinding(InputKey.MouseRight, CytosuAction.Button2),
         };
 
         public override Drawable CreateIcon() => new CytosuIcon();
