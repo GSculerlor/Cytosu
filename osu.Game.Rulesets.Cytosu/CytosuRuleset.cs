@@ -64,10 +64,10 @@ namespace osu.Game.Rulesets.Cytosu
 
         public override IEnumerable<KeyBinding> GetDefaultKeyBindings(int variant = 0) => new[]
         {
-            new KeyBinding(InputKey.Z, CytosuAction.Button1),
-            new KeyBinding(InputKey.X, CytosuAction.Button2),
-            new KeyBinding(InputKey.MouseLeft, CytosuAction.Button1),
-            new KeyBinding(InputKey.MouseRight, CytosuAction.Button2),
+            new KeyBinding(InputKey.Z, CytosuAction.Action1),
+            new KeyBinding(InputKey.X, CytosuAction.Action2),
+            new KeyBinding(InputKey.MouseLeft, CytosuAction.Action1),
+            new KeyBinding(InputKey.MouseRight, CytosuAction.Action2),
         };
 
         public override Drawable CreateIcon() => new CytosuIcon();

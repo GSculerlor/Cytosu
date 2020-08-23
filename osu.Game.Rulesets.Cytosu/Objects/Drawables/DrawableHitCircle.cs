@@ -196,8 +196,8 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
             {
                 switch (action)
                 {
-                    case CytosuAction.Button1:
-                    case CytosuAction.Button2:
+                    case CytosuAction.Action1:
+                    case CytosuAction.Action2:
                         if (IsHovered && (Hit?.Invoke() ?? false))
                         {
                             HitAction = action;
