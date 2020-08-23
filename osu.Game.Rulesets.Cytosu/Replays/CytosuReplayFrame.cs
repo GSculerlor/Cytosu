@@ -29,17 +29,17 @@ namespace osu.Game.Rulesets.Cytosu.Replays
         public void FromLegacy(LegacyReplayFrame currentFrame, IBeatmap beatmap, ReplayFrame lastFrame = null)
         {
             Position = currentFrame.Position;
-            if (currentFrame.MouseLeft) Actions.Add(CytosuAction.Button1);
-            if (currentFrame.MouseRight) Actions.Add(CytosuAction.Button2);
+            if (currentFrame.MouseLeft) Actions.Add(CytosuAction.Action1);
+            if (currentFrame.MouseRight) Actions.Add(CytosuAction.Action2);
         }
 
         public LegacyReplayFrame ToLegacy(IBeatmap beatmap)
         {
             ReplayButtonState state = ReplayButtonState.None;
 
-            if (Actions.Contains(CytosuAction.Button1))
+            if (Actions.Contains(CytosuAction.Action1))
                 state |= ReplayButtonState.Left1;
-            if (Actions.Contains(CytosuAction.Button2))
+            if (Actions.Contains(CytosuAction.Action2))
                 state |= ReplayButtonState.Right1;
 
             return new LegacyReplayFrame(Time, Position.X, Position.Y, state);

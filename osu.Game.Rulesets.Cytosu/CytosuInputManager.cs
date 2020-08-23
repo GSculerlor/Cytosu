@@ -55,10 +55,10 @@ namespace osu.Game.Rulesets.Cytosu
 
     public enum CytosuAction
     {
-        [Description("Button 1")]
-        Button1,
+        [Description("Action 1")]
+        Action1,
 
-        [Description("Button 2")]
-        Button2,
+        [Description("Action 2")]
+        Action2,
     }
 }
