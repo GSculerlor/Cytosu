@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Game.Beatmaps;
 using osu.Game.Rulesets.Cytosu.Objects;
@@ -24,7 +25,7 @@ namespace osu.Game.Rulesets.Cytosu.Beatmaps
 
         protected override Beatmap<CytosuHitObject> CreateBeatmap() => new CytosuBeatmap();
 
-        protected override IEnumerable<CytosuHitObject> ConvertHitObject(HitObject original, IBeatmap beatmap)
+        protected override IEnumerable<CytosuHitObject> ConvertHitObject(HitObject original, IBeatmap beatmap, CancellationToken cancellationToken)
         {
             var progression = CytosuUtils.GetYProgressionFromBeatmap(beatmap, original.StartTime);
 

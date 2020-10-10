@@ -7,6 +7,7 @@ namespace osu.Game.Rulesets.Cytosu.Scoring
 {
     public class CytosuScoreProcessor : ScoreProcessor
     {
-        public override HitWindows CreateHitWindows() => new CytosuHitWindows();
+        // Method is obsolete as of build 2020.1009.0
+        // public override HitWindows CreateHitWindows() => new CytosuHitWindows();
     }
 }

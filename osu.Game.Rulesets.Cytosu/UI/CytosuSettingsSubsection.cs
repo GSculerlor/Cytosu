@@ -33,7 +33,7 @@ namespace osu.Game.Rulesets.Cytosu.UI
                 new SettingsCheckbox
                 {
                     LabelText = "Show Cursor",
-                    Bindable = config.GetBindable<bool>(CytosuRulesetSetting.ShowCursor)
+                    Current = config.GetBindable<bool>(CytosuRulesetSetting.ShowCursor)
                 },
             };
         }
