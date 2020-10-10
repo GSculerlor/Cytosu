@@ -3,7 +3,7 @@
 
 using System;
 using System.Diagnostics;
-using Microsoft.EntityFrameworkCore.Internal;
+using System.Linq;
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
