@@ -360,7 +360,7 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Visual Studio Code per workspace directory
-.vscode
+# .vscode
 
 # IntelliJ IDEA per workspace directory
 .idea
