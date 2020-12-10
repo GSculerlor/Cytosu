@@ -31,9 +31,9 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
 
         protected sealed override double InitialLifetimeOffset => HitObject.TimePreempt;
 
-        protected override void UpdateStateTransforms(ArmedState state)
+        protected override void UpdateHitStateTransforms(ArmedState state)
         {
-            base.UpdateStateTransforms(state);
+            base.UpdateHitStateTransforms(state);
 
             switch (state)
             {

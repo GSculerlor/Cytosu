@@ -65,15 +65,22 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
             }
         }
 
-        public override void Apply(JudgementResult result, DrawableHitObject judgedObject)
+        protected override void PrepareForUse()
         {
-            base.Apply(result, judgedObject);
-
-            if (judgedObject?.HitObject is CytosuHitObject hitObject)
+            base.PrepareForUse();
+            if (JudgedObject?.HitObject is CytosuHitObject hitObject)
             {
                 Position = hitObject.Position;
                 Scale = new Vector2(hitObject.Scale);
             }
+        }
+
+        protected override void ApplyHitAnimations() => animateJudgements();
+        protected override void ApplyMissAnimations() => animateJudgements();
+
+        private void animateJudgements()
+        {
+            this.FadeOut(500).Expire(true);
         }
     }
 }

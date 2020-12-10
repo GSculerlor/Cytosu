@@ -35,7 +35,7 @@ namespace osu.Game.Rulesets.Cytosu.UI
                     RelativeSizeAxes = Axes.Both,
                 },
                 HitObjectContainer,
-                new PlayfieldBorder
+                new HUD.PlayfieldBorder
                 {
                     RelativeSizeAxes = Axes.Both
                 },
