@@ -140,9 +140,9 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
             }
         }
 
-        protected override void UpdateStateTransforms(ArmedState state)
+        protected override void UpdateHitStateTransforms(ArmedState state)
         {
-            base.UpdateStateTransforms(state);
+            base.UpdateHitStateTransforms(state);
 
             Debug.Assert(HitObject.HitWindows != null);
 

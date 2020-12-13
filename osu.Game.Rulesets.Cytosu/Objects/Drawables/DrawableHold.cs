@@ -145,9 +145,9 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
             }
         }
 
-        protected override void UpdateStateTransforms(ArmedState state)
+        protected override void UpdateHitStateTransforms(ArmedState state)
         {
-            base.UpdateStateTransforms(state);
+            base.UpdateHitStateTransforms(state);
 
             Debug.Assert(HitObject.HitWindows != null);
 
@@ -162,6 +162,8 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
                         .ScaleTo(1.5f, 200, Easing.InCubic)
                         .FadeOut(200);
                     BodyPiece.FadeOut(200);
+                    RingProgressPiece.FadeOut();
+                    this.Delay(200).Expire();
 
                     break;
             }
