@@ -13,6 +13,7 @@ using osu.Game.Rulesets.Cytosu.Replays;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.Objects.Drawables;
 using osu.Game.Rulesets.UI;
+using osu.Game.Scoring;
 using osuTK;
 
 namespace osu.Game.Rulesets.Cytosu.UI
@@ -47,7 +48,7 @@ namespace osu.Game.Rulesets.Cytosu.UI
 
         protected override ReplayInputHandler CreateReplayInputHandler(Replay replay) => new CytosuFramedReplayInputHandler(replay);
 
-        protected override ReplayRecorder CreateReplayRecorder(Replay replay) => new CytosuReplayRecorder(replay);
+        protected override ReplayRecorder CreateReplayRecorder(Score score) => new CytosuReplayRecorder(score);
 
         protected override PassThroughInputManager CreateInputManager() => new CytosuInputManager(Ruleset?.RulesetInfo);
     }

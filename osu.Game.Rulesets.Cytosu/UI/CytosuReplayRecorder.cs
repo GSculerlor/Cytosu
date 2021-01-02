@@ -6,14 +6,15 @@ using osu.Game.Replays;
 using osu.Game.Rulesets.Cytosu.Replays;
 using osu.Game.Rulesets.Replays;
 using osu.Game.Rulesets.UI;
+using osu.Game.Scoring;
 using osuTK;
 
 namespace osu.Game.Rulesets.Cytosu.UI
 {
     public class CytosuReplayRecorder : ReplayRecorder<CytosuAction>
     {
-        public CytosuReplayRecorder(Replay replay)
-            : base(replay)
+        public CytosuReplayRecorder(Score score)
+            : base(score)
         {
         }
 
