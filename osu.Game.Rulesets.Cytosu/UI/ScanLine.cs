@@ -7,9 +7,10 @@ using osu.Framework.Graphics.Shapes;
 using osu.Game.Beatmaps.ControlPoints;
 using osu.Game.Graphics.Containers;
 using osu.Game.Rulesets.Cytosu.Utils;
+using osuTK;
 using osuTK.Graphics;
 
-namespace osu.Game.Rulesets.Cytosu.UI.HUD
+namespace osu.Game.Rulesets.Cytosu.UI
 {
     public class ScanLine : BeatSyncedContainer
     {

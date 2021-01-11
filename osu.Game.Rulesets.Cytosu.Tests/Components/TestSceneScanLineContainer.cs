@@ -5,7 +5,7 @@ using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Timing;
 using osu.Game.Overlays;
-using osu.Game.Rulesets.Cytosu.UI.HUD;
+using osu.Game.Rulesets.Cytosu.UI;
 using osu.Game.Tests.Visual;
 
 namespace osu.Game.Rulesets.Cytosu.Tests.Components

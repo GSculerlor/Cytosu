@@ -9,7 +9,7 @@ using osu.Framework.Graphics;
 using osu.Framework.Graphics.Pooling;
 using osu.Game.Rulesets.Cytosu.Objects.Drawables;
 using osu.Game.Rulesets.Cytosu.Scoring;
-using osu.Game.Rulesets.Cytosu.UI.HUD;
+using osu.Game.Rulesets.Cytosu.UI;
 using osu.Game.Rulesets.Judgements;
 using osu.Game.Rulesets.Objects;
 using osu.Game.Rulesets.Objects.Drawables;
@@ -30,20 +30,21 @@ namespace osu.Game.Rulesets.Cytosu.UI
         {
             InternalChildren = new Drawable[]
             {
+                new PlayfieldBorder
+                {
+                    RelativeSizeAxes = Axes.Both,
+                    Depth = 3
+                },
                 judgementLayer = new JudgementContainer<DrawableCytosuJudgement>
                 {
                     RelativeSizeAxes = Axes.Both,
                 },
                 HitObjectContainer,
-                new HUD.PlayfieldBorder
-                {
-                    RelativeSizeAxes = Axes.Both
-                },
                 new ScanLine
                 {
                     Origin = Anchor.Centre,
                     Anchor = Anchor.Centre,
-                    Width = 5000f,
+                    RelativeSizeAxes = Axes.Both,
                     LineColour = Color4.White,
                 }
             };
