@@ -16,18 +16,6 @@ namespace osu.Game.Rulesets.Cytosu.UI
     {
         private readonly Box scanLine;
 
-        private Color4 lineColour;
-
-        public Color4 LineColour
-        {
-            set
-            {
-                lineColour = value;
-                updateScanLineColour(lineColour);
-            }
-        }
-
-        //Make sure not fucked up the input (idk should I proxy the hit object?)
         public override bool HandlePositionalInput => false;
 
         public ScanLine()
@@ -39,13 +27,9 @@ namespace osu.Game.Rulesets.Cytosu.UI
                 Name = "Scan line",
                 RelativeSizeAxes = Axes.X,
                 RelativePositionAxes = Axes.Y,
-                Height = 2f
+                Height = 2f,
+                Colour = Color4.White
             });
-        }
-
-        private void updateScanLineColour(Color4 colour)
-        {
-            scanLine.Colour = colour;
         }
 
         private int beatIndex = -1;

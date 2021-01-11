@@ -44,8 +44,7 @@ namespace osu.Game.Rulesets.Cytosu.UI
                 {
                     Origin = Anchor.Centre,
                     Anchor = Anchor.Centre,
-                    RelativeSizeAxes = Axes.Both,
-                    LineColour = Color4.White,
+                    RelativeSizeAxes = Axes.Both
                 }
             };
 
