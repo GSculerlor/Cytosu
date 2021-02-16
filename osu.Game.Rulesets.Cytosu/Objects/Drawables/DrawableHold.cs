@@ -53,7 +53,6 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
                             Margin = new MarginPadding(Piece.RingPiece.RING_THICKNESS),
                             Child = BodyPiece = new HoldBodyPiece
                             {
-                                Direction = HitObject.Direction,
                                 Alpha = 0,
                                 Scale = Vector2.Zero
                             },

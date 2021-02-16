@@ -30,27 +30,16 @@ namespace osu.Game.Rulesets.Cytosu.Beatmaps
             var progression = CytosuUtils.GetYProgressionFromBeatmap(beatmap, original.StartTime);
 
             float x = ((IHasXPosition)original).X;
-            float y = progression.yPosition * 384;
+            float y = progression * 384;
 
             switch (original)
             {
-                case IHasDuration endTimeData:
-                    return new Hold
-                    {
-                        Samples = original.Samples,
-                        StartTime = original.StartTime,
-                        EndTime = endTimeData.EndTime,
-                        Position = new Vector2(x, y),
-                        Direction = progression.direction
-                    }.Yield();
-
                 default:
                     return new HitCircle
                     {
                         Samples = original.Samples,
                         StartTime = original.StartTime,
-                        Position = new Vector2(x, y),
-                        Direction = progression.direction
+                        Position = new Vector2(x, y)
                     }.Yield();
             }
         }

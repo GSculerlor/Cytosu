@@ -11,7 +11,7 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables.Piece
 {
     public class RingPiece : CompositeDrawable
     {
-        public const float RING_THICKNESS = 16f;
+        public const float RING_THICKNESS = 12f;
 
         public RingPiece()
         {
@@ -20,20 +20,30 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables.Piece
             Anchor = Anchor.Centre;
             Origin = Anchor.Centre;
 
-            AddInternal(new CircularContainer
-            {
-                RelativeSizeAxes = Axes.Both,
-                Masking = true,
-                BorderThickness = RING_THICKNESS,
-                BorderColour = Color4.White,
-                Anchor = Anchor.Centre,
-                Origin = Anchor.Centre,
-                Child = new Box
+            AddRangeInternal(new Drawable[] {
+                new CircularContainer
                 {
                     RelativeSizeAxes = Axes.Both,
-                    Alpha = 0,
-                    AlwaysPresent = true
-                }
+                    Masking = true,
+                    BorderThickness = RING_THICKNESS,
+                    BorderColour = Color4.White,
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                    Child = new Box
+                    {
+                        RelativeSizeAxes = Axes.Both,
+                        Alpha = 0,
+                        AlwaysPresent = true
+                    }
+                },
+                new Circle
+                {
+                    Size = new Vector2(25),
+                    Masking = true,
+                    Colour = Color4.White,
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre
+                },
             });
         }
     }

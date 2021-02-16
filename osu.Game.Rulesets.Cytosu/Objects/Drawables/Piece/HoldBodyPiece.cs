@@ -11,8 +11,6 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables.Piece
 {
     public class HoldBodyPiece : CompositeDrawable
     {
-        public HitObjectDirection Direction { get; set; }
-
         private readonly Box innerBox;
 
         public HoldBodyPiece()
@@ -38,7 +36,7 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables.Piece
         [BackgroundDependencyLoader]
         private void load(OsuColour colour)
         {
-            innerBox.Colour = Direction == HitObjectDirection.Up ? colour.Pink : colour.PinkDarker;
+            innerBox.Colour = colour.PinkDarker;
         }
     }
 }

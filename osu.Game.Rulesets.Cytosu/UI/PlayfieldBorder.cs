@@ -69,7 +69,6 @@ namespace osu.Game.Rulesets.Cytosu.UI
                 this.direction = direction;
 
                 Colour = Color4.White;
-                // starting in relative avoids the framework thinking it knows best and setting the width to 1 initially.
 
                 switch (direction)
                 {

@@ -14,12 +14,10 @@ namespace osu.Game.Rulesets.Cytosu.Objects
 {
     public abstract class CytosuHitObject : HitObject, IHasPosition
     {
-        public const float CIRCLE_RADIUS = 60;
+        public const float CIRCLE_RADIUS = 50;
 
         public double TimePreempt = 600;
         public double TimeFadeIn = 400;
-
-        public virtual HitObjectDirection Direction { get; set; }
 
         public readonly Bindable<Vector2> PositionBindable = new Bindable<Vector2>();
 
