@@ -17,10 +17,10 @@ namespace osu.Game.Rulesets.Cytosu.Utils
             float beatProgression = (float)(timeSinceTimingPoint % timingPoint.BeatLength / timingPoint.BeatLength);
             int beatIndex = (int)Math.Round((timeSinceTimingPoint - timeSinceTimingPoint % timingPoint.BeatLength) / timingPoint.BeatLength);
 
-            return GetProgression(beatIndex, beatProgression);
+            return GetProgressionFromBeat(beatIndex, beatProgression);
         }
 
-        public static float GetProgression(int beatIndex, float beatProgression)
+        public static float GetProgressionFromBeat(int beatIndex, float beatProgression)
         {
             if (beatIndex < 0)
             {

@@ -51,7 +51,7 @@ namespace osu.Game.Rulesets.Cytosu.UI
         {
             float beatProgression = (float)(TimeSinceLastBeat / (TimeSinceLastBeat + TimeUntilNextBeat));
 
-            return CytosuUtils.GetProgression(beatIndex, beatProgression);
+            return CytosuUtils.GetProgressionFromBeat(beatIndex, beatProgression);
         }
     }
 }
