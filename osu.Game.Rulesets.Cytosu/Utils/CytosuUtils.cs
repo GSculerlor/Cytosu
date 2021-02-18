@@ -9,7 +9,7 @@ namespace osu.Game.Rulesets.Cytosu.Utils
 {
     public static class CytosuUtils
     {
-        public static float GetYProgressionFromBeatmap(IBeatmap beatmap, double time)
+        public static float GetProgressionFromBeatmap(IBeatmap beatmap, double time)
         {
             var timingPoint = beatmap.ControlPointInfo.TimingPointAt(time);
             var timeSinceTimingPoint = time - timingPoint.Time;
@@ -17,10 +17,10 @@ namespace osu.Game.Rulesets.Cytosu.Utils
             float beatProgression = (float)(timeSinceTimingPoint % timingPoint.BeatLength / timingPoint.BeatLength);
             int beatIndex = (int)Math.Round((timeSinceTimingPoint - timeSinceTimingPoint % timingPoint.BeatLength) / timingPoint.BeatLength);
 
-            return GetYProgression(beatIndex, beatProgression);
+            return GetProgressionFromBeat(beatIndex, beatProgression);
         }
 
-        public static float GetYProgression(int beatIndex, float beatProgression)
+        public static float GetProgressionFromBeat(int beatIndex, float beatProgression)
         {
             if (beatIndex < 0)
             {

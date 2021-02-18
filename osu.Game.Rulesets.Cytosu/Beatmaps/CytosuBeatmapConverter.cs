@@ -27,7 +27,7 @@ namespace osu.Game.Rulesets.Cytosu.Beatmaps
 
         protected override IEnumerable<CytosuHitObject> ConvertHitObject(HitObject original, IBeatmap beatmap, CancellationToken cancellationToken)
         {
-            var progression = CytosuUtils.GetYProgressionFromBeatmap(beatmap, original.StartTime);
+            var progression = CytosuUtils.GetProgressionFromBeatmap(beatmap, original.StartTime);
 
             float x = ((IHasXPosition)original).X;
             float y = progression * 384;
