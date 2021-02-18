@@ -42,7 +42,6 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
         }
 
         private readonly IBindable<Vector2> positionBindable = new Bindable<Vector2>();
-        private readonly IBindable<float> scaleBindable = new BindableFloat();
         private readonly Container scaleContainer;
 
         public DrawableHitCircle(CytosuHitObject hitObject)
@@ -59,6 +58,7 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
                     RelativeSizeAxes = Axes.Both,
                     Origin = Anchor.Centre,
                     Anchor = Anchor.Centre,
+                    Scale = new Vector2(0.75f),
                     Children = new[]
                     {
                         HitArea = new HitReceptor
@@ -96,10 +96,8 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
         private void load()
         {
             positionBindable.BindValueChanged(_ => Position = HitObject.Position);
-            scaleBindable.BindValueChanged(scale => scaleContainer.Scale = new Vector2(scale.NewValue), true);
 
             positionBindable.BindTo(HitObject.PositionBindable);
-            scaleBindable.BindTo(HitObject.ScaleBindable);
         }
 
         protected override void CheckForResult(bool userTriggered, double timeOffset)

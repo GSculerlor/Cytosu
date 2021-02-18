@@ -23,7 +23,6 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
         public readonly HoldRingProgressPiece RingProgressPiece;
 
         private readonly IBindable<Vector2> positionBindable = new Bindable<Vector2>();
-        private readonly IBindable<float> scaleBindable = new BindableFloat();
         private readonly Container scaleContainer;
 
         //Hold need to hovered to make it a valid action
@@ -73,10 +72,8 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
         private void load()
         {
             positionBindable.BindValueChanged(_ => Position = HitObject.Position);
-            scaleBindable.BindValueChanged(scale => scaleContainer.Scale = new Vector2(scale.NewValue), true);
 
             positionBindable.BindTo(HitObject.PositionBindable);
-            scaleBindable.BindTo(HitObject.ScaleBindable);
         }
 
         private readonly Bindable<bool> isActivated = new BindableBool();

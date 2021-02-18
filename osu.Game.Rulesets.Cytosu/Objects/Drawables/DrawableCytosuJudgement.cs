@@ -71,7 +71,7 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
             if (JudgedObject?.HitObject is CytosuHitObject hitObject)
             {
                 Position = hitObject.Position;
-                Scale = new Vector2(hitObject.Scale);
+                Scale = new Vector2(0.75f);
             }
         }
 
