@@ -1,6 +1,7 @@
 ﻿// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the MIT Licence.
 // See the LICENCE file in the repository root for full licence text.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using osu.Game.Beatmaps;
@@ -25,6 +26,9 @@ namespace osu.Game.Rulesets.Cytosu
 
         protected override IEnumerable<DifficultyHitObject> CreateDifficultyHitObjects(IBeatmap beatmap, double clockRate) => Enumerable.Empty<DifficultyHitObject>();
 
-        protected override Skill[] CreateSkills(IBeatmap beatmap) => System.Array.Empty<Skill>();
+        protected override Skill[] CreateSkills(IBeatmap beatmap, Mod[] mods)
+        {
+            return Array.Empty<Skill>();
+        }
     }
 }
