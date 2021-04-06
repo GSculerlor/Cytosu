@@ -28,7 +28,7 @@ namespace osu.Game.Rulesets.Cytosu.UI
                 Name = "Scan line",
                 RelativeSizeAxes = Axes.X,
                 RelativePositionAxes = Axes.Y,
-                Height = 2f,
+                Height = 2.5f,
                 Colour = Color4.White
             });
         }
