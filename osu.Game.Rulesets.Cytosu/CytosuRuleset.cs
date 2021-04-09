@@ -70,6 +70,16 @@ namespace osu.Game.Rulesets.Cytosu
             new KeyBinding(InputKey.MouseRight, CytosuAction.Action2),
         };
 
+        protected override IEnumerable<HitResult> GetValidHitResults()
+        {
+            return new[]
+            {
+                HitResult.Meh,
+                HitResult.Good,
+                HitResult.Great
+            };
+        }
+
         public override Drawable CreateIcon() => new CytosuIcon();
     }
 }
