@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
+using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Pooling;
 using osu.Game.Rulesets.Cytosu.Objects.Drawables;
 using osu.Game.Rulesets.Cytosu.Scoring;
-using osu.Game.Rulesets.Cytosu.UI;
 using osu.Game.Rulesets.Judgements;
 using osu.Game.Rulesets.Objects;
 using osu.Game.Rulesets.Objects.Drawables;
@@ -49,24 +49,15 @@ namespace osu.Game.Rulesets.Cytosu.UI
             };
 
             var hitWindows = new CytosuHitWindows();
-
             foreach (var result in Enum.GetValues(typeof(HitResult)).OfType<HitResult>().Where(r => r > HitResult.None && hitWindows.IsHitResultAllowed(r)))
                 poolDictionary.Add(result, new DrawableJudgementPool(result));
 
             AddRangeInternal(poolDictionary.Values);
+
+            NewResult += onNewResult;
         }
 
         protected override GameplayCursorContainer CreateCursor() => new CytosuCursorContainer();
-
-        public override void Add(DrawableHitObject h)
-        {
-            h.OnNewResult += onNewResult;
-            h.OnLoadComplete += d =>
-            {
-            };
-
-            base.Add(h);
-        }
 
         private void onNewResult(DrawableHitObject judgedObject, JudgementResult result)
         {

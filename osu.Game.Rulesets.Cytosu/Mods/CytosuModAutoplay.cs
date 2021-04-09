@@ -16,7 +16,7 @@ namespace osu.Game.Rulesets.Cytosu.Mods
 {
     public class CytosuModAutoplay : ModAutoplay<CytosuHitObject>, IApplicableToDrawableHitObjects
     {
-        public override Score CreateReplayScore(IBeatmap beatmap) => new Score
+        public override Score CreateReplayScore(IBeatmap beatmap, IReadOnlyList<Mod> mods) => new Score
         {
             ScoreInfo = new ScoreInfo
             {

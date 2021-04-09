@@ -18,8 +18,6 @@ namespace osu.Game.Rulesets.Cytosu.Replays
             : base(beatmap)
         {
             Replay = new Replay();
-
-            //TODO: We probably just hide the cursor by changing it's bindable
             Frames.Add(new CytosuReplayFrame { Position = new Vector2(-1000), Time = -2000 });
         }
 

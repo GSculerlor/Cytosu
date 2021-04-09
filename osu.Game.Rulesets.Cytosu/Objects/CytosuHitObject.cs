@@ -4,7 +4,9 @@
 using osu.Framework.Bindables;
 using osu.Game.Beatmaps;
 using osu.Game.Beatmaps.ControlPoints;
+using osu.Game.Rulesets.Cytosu.Judgements;
 using osu.Game.Rulesets.Cytosu.Scoring;
+using osu.Game.Rulesets.Judgements;
 using osu.Game.Rulesets.Objects;
 using osu.Game.Rulesets.Objects.Types;
 using osu.Game.Rulesets.Scoring;
@@ -30,12 +32,13 @@ namespace osu.Game.Rulesets.Cytosu.Objects
         public float X => Position.X;
         public float Y => Position.Y;
 
+        public override Judgement CreateJudgement() => new CytosuJudgement();
+
         protected override void ApplyDefaultsToSelf(ControlPointInfo controlPointInfo, BeatmapDifficulty difficulty)
         {
             base.ApplyDefaultsToSelf(controlPointInfo, difficulty);
 
             TimePreempt = (float)BeatmapDifficulty.DifficultyRange(difficulty.ApproachRate, 1800, 1200, 450);
-            TimeFadeIn = 400;
         }
 
         protected override HitWindows CreateHitWindows() => new CytosuHitWindows();
