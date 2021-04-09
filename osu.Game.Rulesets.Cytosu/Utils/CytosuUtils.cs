@@ -28,7 +28,11 @@ namespace osu.Game.Rulesets.Cytosu.Utils
                 beatProgression = 1f - beatProgression;
             }
 
-            return (beatIndex % 4 + beatProgression) / 4;
+            bool direction = beatIndex / 4 % 2 == 1;
+            float yProgression = (beatIndex % 4 + beatProgression) / 4;
+
+            //If direction is going up then we subtract it
+            return direction ? 1f - yProgression : yProgression;
         }
     }
 }
