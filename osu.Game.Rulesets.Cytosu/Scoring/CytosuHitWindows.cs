@@ -24,9 +24,9 @@ namespace osu.Game.Rulesets.Cytosu.Scoring
                 case HitResult.Meh:
                 case HitResult.Miss:
                     return true;
+                default:
+                    return false;
             }
-
-            return false;
         }
 
         protected override DifficultyRange[] GetRanges() => cytosu_ranges;

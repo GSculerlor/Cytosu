@@ -18,30 +18,29 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
 {
     public class DrawableHold : DrawableCytosuHitObject
     {
-        public readonly Drawable RingPiece;
-        public readonly Drawable BodyPiece;
-        public readonly HoldRingProgressPiece RingProgressPiece;
+        public Drawable RingPiece;
+        public Drawable BodyPiece;
+        public HoldRingProgressPiece RingProgressPiece;
 
         private readonly IBindable<Vector2> positionBindable = new Bindable<Vector2>();
-        private readonly Container scaleContainer;
-
-        //Hold need to hovered to make it a valid action
-        public override bool HandlePositionalInput => true;
 
         public DrawableHold(CytosuHitObject hitObject)
-            : base(hitObject)
+            : base(hitObject) { }
+
+        [BackgroundDependencyLoader]
+        private void load()
         {
             Origin = Anchor.Centre;
             Position = HitObject.Position;
-            AlwaysPresent = true;
 
-            InternalChildren = new Drawable[]
+            AddRangeInternal(new Drawable[]
             {
-                scaleContainer = new Container
+                new Container
                 {
                     RelativeSizeAxes = Axes.Both,
                     Origin = Anchor.Centre,
                     Anchor = Anchor.Centre,
+                    Scale = new Vector2(0.75f),
                     Children = new[]
                     {
                         new Container
@@ -63,23 +62,18 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
                         RingPiece = new RingPiece()
                     }
                 }
-            };
+            });
 
             Size = new Vector2(CytosuHitObject.CIRCLE_RADIUS * 2);
-        }
 
-        [BackgroundDependencyLoader]
-        private void load()
-        {
             positionBindable.BindValueChanged(_ => Position = HitObject.Position);
-
             positionBindable.BindTo(HitObject.PositionBindable);
         }
 
         private readonly Bindable<bool> isActivated = new BindableBool();
         private double holdDuration;
 
-        private CytosuInputManager inputManager => GetContainingInputManager() as CytosuInputManager;
+        private CytosuInputManager InputManager => GetContainingInputManager() as CytosuInputManager;
 
         protected override void Update()
         {
@@ -87,7 +81,7 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
 
             isActivated.Value = Time.Current >= HitObject.StartTime
                                 && Time.Current <= ((IHasDuration)HitObject)?.EndTime
-                                && (inputManager.PressedActions.Any() && IsHovered || ShouldPerfectlyJudged);
+                                && (InputManager.PressedActions.Any() && IsHovered || ShouldPerfectlyJudged);
 
             if (Result.HasResult) return;
 
@@ -98,7 +92,12 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
                     double progression = holdDuration / ((IHasDuration)HitObject).Duration;
                     holdDuration += Time.Elapsed;
 
+                    RingProgressPiece.ScaleTo(2, HitObject.TimePreempt, Easing.OutQuint);
                     RingProgressPiece.Progress.Current.Value = progression;
+                }
+                else
+                {
+                    RingProgressPiece.ScaleTo(1, HitObject.TimePreempt, Easing.OutQuint);
                 }
             }
         }
@@ -132,6 +131,7 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
             using (BeginAbsoluteSequence(HitObject.StartTime - HitObject.TimePreempt))
             {
                 this.ScaleTo(0.5f).Then().ScaleTo(1, HitObject.TimePreempt, Easing.OutSine);
+
                 RingPiece.FadeInFromZero(HitObject.TimePreempt / 2);
 
                 BodyPiece.FadeIn(Math.Min(HitObject.TimeFadeIn * 2, HitObject.TimePreempt));

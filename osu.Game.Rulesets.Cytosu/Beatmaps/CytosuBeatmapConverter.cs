@@ -7,6 +7,7 @@ using System.Threading;
 using osu.Framework.Extensions.IEnumerableExtensions;
 using osu.Game.Beatmaps;
 using osu.Game.Rulesets.Cytosu.Objects;
+using osu.Game.Rulesets.Cytosu.UI;
 using osu.Game.Rulesets.Cytosu.Utils;
 using osu.Game.Rulesets.Objects;
 using osu.Game.Rulesets.Objects.Types;
@@ -34,6 +35,24 @@ namespace osu.Game.Rulesets.Cytosu.Beatmaps
 
             switch (original)
             {
+                case IHasPathWithRepeats pathdata:
+                    return new Hold
+                    {
+                        StartTime = original.StartTime,
+                        Samples = original.Samples,
+                        EndTime = pathdata.EndTime,
+                        Position = new Vector2(x, y)
+                    }.Yield();
+
+                case IHasDuration endTimeData:
+                    return new Hold
+                    {
+                        StartTime = original.StartTime,
+                        Samples = original.Samples,
+                        EndTime = endTimeData.EndTime,
+                        Position = new Vector2(256, 192)
+                    }.Yield();
+
                 default:
                     return new HitCircle
                     {

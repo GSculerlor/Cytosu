@@ -3,6 +3,7 @@
 
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
+using osu.Game.Rulesets.Cytosu.Judgements;
 using osu.Game.Rulesets.Judgements;
 using osu.Game.Rulesets.Objects.Drawables;
 
@@ -10,24 +11,12 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
 {
     public class DrawableCytosuHitObject : DrawableHitObject<CytosuHitObject>
     {
-        private readonly Container container;
+        public override bool HandlePositionalInput => true;
 
         public bool ShouldPerfectlyJudged { get; set; }
 
         public DrawableCytosuHitObject(CytosuHitObject hitObject)
-            : base(hitObject)
-        {
-            base.AddInternal(container = new Container
-            {
-                RelativeSizeAxes = Axes.Both
-            });
-
-            Alpha = 0;
-        }
-
-        protected override void AddInternal(Drawable drawable) => container.Add(drawable);
-        protected override void ClearInternal(bool disposeChildren = true) => container.Clear(disposeChildren);
-        protected override bool RemoveInternal(Drawable drawable) => container.Remove(drawable);
+            : base(hitObject) { }
 
         protected sealed override double InitialLifetimeOffset => HitObject.TimePreempt;
 
@@ -42,8 +31,5 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
                     break;
             }
         }
-
-        //TODO: Change to Cytosu judgement result if available
-        protected override JudgementResult CreateResult(Judgement judgement) => new JudgementResult(HitObject, judgement);
     }
 }

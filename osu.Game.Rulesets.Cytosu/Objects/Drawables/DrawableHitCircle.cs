@@ -17,9 +17,9 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
 {
     public class DrawableHitCircle : DrawableCytosuHitObject
     {
-        public readonly HitReceptor HitArea;
-        public readonly Drawable RingPiece;
-        public readonly Drawable BodyPiece;
+        public HitReceptor HitArea;
+        public Drawable RingPiece;
+        public Drawable BodyPiece;
 
         public override double LifetimeStart
         {
@@ -42,18 +42,19 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
         }
 
         private readonly IBindable<Vector2> positionBindable = new Bindable<Vector2>();
-        private readonly Container scaleContainer;
 
         public DrawableHitCircle(CytosuHitObject hitObject)
-            : base(hitObject)
+            : base(hitObject) { }
+
+        [BackgroundDependencyLoader]
+        private void load()
         {
             Origin = Anchor.Centre;
             Position = HitObject.Position;
-            AlwaysPresent = true;
 
-            InternalChildren = new Drawable[]
+            AddRangeInternal(new Drawable[]
             {
-                scaleContainer = new Container
+                new Container
                 {
                     RelativeSizeAxes = Axes.Both,
                     Origin = Anchor.Centre,
@@ -87,16 +88,11 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
                         RingPiece = new RingPiece()
                     }
                 }
-            };
+            });
 
             Size = HitArea.DrawSize;
-        }
 
-        [BackgroundDependencyLoader]
-        private void load()
-        {
             positionBindable.BindValueChanged(_ => Position = HitObject.Position);
-
             positionBindable.BindTo(HitObject.PositionBindable);
         }
 
@@ -133,7 +129,6 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
 
                 BodyPiece.FadeIn(Math.Min(HitObject.TimeFadeIn * 2, HitObject.TimePreempt));
                 BodyPiece.ScaleTo(1f, HitObject.TimePreempt);
-                BodyPiece.Expire(true);
             }
         }
 
@@ -167,8 +162,6 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
                     break;
             }
         }
-
-        //TODO: Add Cytosu judgement if available
 
         public class HitReceptor : CompositeDrawable, IKeyBindingHandler<CytosuAction>
         {
