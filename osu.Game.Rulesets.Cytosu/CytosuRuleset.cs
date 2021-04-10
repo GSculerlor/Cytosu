@@ -50,10 +50,24 @@ namespace osu.Game.Rulesets.Cytosu
             switch (type)
             {
                 case ModType.DifficultyReduction:
-                    return new[] { new CytosuModNoFail() };
+                    return new Mod[] 
+                    { 
+                        new CytosuModNoFail(),
+                        new MultiMod(new CytosuModHalfTime(), new CytosuModDaycore())
+                    };
+
+                case ModType.DifficultyIncrease:
+                    return new Mod[]
+                    {
+                        new MultiMod(new CytosuModDoubleTime(), new CytosuModNightcore())
+                    };
 
                 case ModType.Automation:
-                    return new[] { new CytosuModAutoplay() };
+                    return new Mod[]
+                    { 
+                        new CytosuModRelax(),
+                        new CytosuModAutoplay() 
+                    };
 
                 default:
                     return new Mod[] { null };
