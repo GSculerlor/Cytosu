@@ -19,6 +19,8 @@ namespace osu.Game.Rulesets.Cytosu.Mods
         private bool hasReplay;
         private bool isDownState;
 
+        public override string Description => "Too lazy to click your keyboard, eh?";
+
         public void ApplyToDrawableRuleset(DrawableRuleset<CytosuHitObject> drawableRuleset)
         {
             inputManager = (CytosuInputManager)drawableRuleset.KeyBindingInputManager;

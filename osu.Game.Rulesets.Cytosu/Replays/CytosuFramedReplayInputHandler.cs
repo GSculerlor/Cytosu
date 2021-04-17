@@ -28,11 +28,9 @@ namespace osu.Game.Rulesets.Cytosu.Replays
                 var frame = CurrentFrame;
 
                 if (frame == null)
-                    return null;
+                    return Vector2.Zero;
 
-                Debug.Assert(CurrentTime != null);
-
-                return NextFrame != null ? Interpolation.ValueAt(CurrentTime.Value, frame.Position, NextFrame.Position, frame.Time, NextFrame.Time) : frame.Position;
+                return NextFrame != null ? Interpolation.ValueAt(CurrentTime, frame.Position, NextFrame.Position, frame.Time, NextFrame.Time) : frame.Position;
             }
         }
 
