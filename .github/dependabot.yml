@@ -16,3 +16,16 @@ updates:
     separator: "-"
   reviewers:
     - "GSculerlor"
+  ignore:
+    - dependency-name: Microsoft.EntityFrameworkCore.Sqlite
+      versions:
+      - "> 2.2.6"
+    - dependency-name: NUnit3TestAdapter
+      versions:
+      - ">= 3.16.a, < 3.17"
+    - dependency-name: Microsoft.NET.Test.Sdk
+      versions:
+      - 16.9.1
+    - dependency-name: NUnit
+      versions:
+      - 3.13.1
