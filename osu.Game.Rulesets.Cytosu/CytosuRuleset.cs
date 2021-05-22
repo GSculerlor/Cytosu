@@ -64,9 +64,9 @@ namespace osu.Game.Rulesets.Cytosu
 
                 case ModType.Automation:
                     return new Mod[]
-                    { 
-                        new CytosuModRelax(),
-                        new CytosuModAutoplay() 
+                    {
+                        new CytosuModAutoplay(),
+                        new CytosuModRelax()
                     };
 
                 default:
