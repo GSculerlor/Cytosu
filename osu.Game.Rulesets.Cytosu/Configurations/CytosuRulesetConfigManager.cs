@@ -16,7 +16,7 @@ namespace osu.Game.Rulesets.Cytosu.Configurations
         protected override void InitialiseDefaults()
         {
             base.InitialiseDefaults();
-            Set(CytosuRulesetSetting.ShowCursor, true);
+            SetDefault(CytosuRulesetSetting.ShowCursor, true);
         }
     }
 
