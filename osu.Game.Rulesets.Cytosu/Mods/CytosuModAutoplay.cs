@@ -14,7 +14,7 @@ using osu.Game.Users;
 
 namespace osu.Game.Rulesets.Cytosu.Mods
 {
-    public class CytosuModAutoplay : ModAutoplay<CytosuHitObject>, IApplicableToDrawableHitObjects
+    public class CytosuModAutoplay : ModAutoplay, IApplicableToDrawableHitObject
     {
         public override Score CreateReplayScore(IBeatmap beatmap, IReadOnlyList<Mod> mods) => new Score
         {
@@ -25,12 +25,12 @@ namespace osu.Game.Rulesets.Cytosu.Mods
             Replay = new CytosuAutoGenerator(beatmap).Generate(),
         };
 
-        public void ApplyToDrawableHitObjects(IEnumerable<DrawableHitObject> drawables)
+        public void ApplyToDrawableHitObject(DrawableHitObject drawable)
         {
-            foreach (var hitObject in drawables.OfType<DrawableCytosuHitObject>())
-            {
-                hitObject.ShouldPerfectlyJudged = true;
-            }
+            if (drawable is not DrawableCytosuHitObject drawableCytosu)
+                return;
+
+            drawableCytosu.ShouldPerfectlyJudged = true;
         }
     }
 }
