@@ -3,6 +3,7 @@
 
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
+using osu.Framework.Localisation;
 using osu.Game.Overlays.Settings;
 using osu.Game.Rulesets.Cytosu.Configurations;
 
@@ -12,7 +13,7 @@ namespace osu.Game.Rulesets.Cytosu.UI
     {
         private readonly Ruleset ruleset;
 
-        protected override string Header => ruleset.ShortName;
+        protected override LocalisableString Header => ruleset.ShortName;
 
         public CytosuSettingsSubsection(Ruleset ruleset)
             : base(ruleset)
