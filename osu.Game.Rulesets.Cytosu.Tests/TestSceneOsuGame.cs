@@ -15,18 +15,16 @@ namespace osu.Game.Rulesets.Cytosu.Tests
         [BackgroundDependencyLoader]
         private void load(GameHost host, OsuGameBase gameBase)
         {
-            OsuGame game = new OsuGame();
-            game.SetHost(host);
-
             Children = new Drawable[]
             {
                 new Box
                 {
                     RelativeSizeAxes = Axes.Both,
                     Colour = Color4.Black,
-                },
-                game
+                }
             };
+
+            AddGame(new OsuGame());
         }
     }
 }

@@ -8,6 +8,7 @@ using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Input.Bindings;
+using osu.Framework.Input.Events;
 using osu.Game.Rulesets.Cytosu.Objects.Drawables.Piece;
 using osu.Game.Rulesets.Objects.Drawables;
 using osu.Game.Rulesets.Scoring;
@@ -182,15 +183,15 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
                 CornerExponent = 2;
             }
 
-            public bool OnPressed(CytosuAction action)
+            public bool OnPressed(KeyBindingPressEvent<CytosuAction> e)
             {
-                switch (action)
+                switch (e.Action)
                 {
                     case CytosuAction.Action1:
                     case CytosuAction.Action2:
                         if (IsHovered && (Hit?.Invoke() ?? false))
                         {
-                            HitAction = action;
+                            HitAction = e.Action;
                             return true;
                         }
 
@@ -200,7 +201,7 @@ namespace osu.Game.Rulesets.Cytosu.Objects.Drawables
                 return false;
             }
 
-            public void OnReleased(CytosuAction action)
+            public void OnReleased(KeyBindingReleaseEvent<CytosuAction> e)
             {
             }
         }
